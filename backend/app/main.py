@@ -54,6 +54,6 @@ async def health_check():
         "status": "healthy",
         "services": {
             "api": "operational",
-            "ai": "operational" if settings.gemini_api_key else "not_configured",
+            "ai": "operational" if settings.azure_openai_api_key else "not_configured",
         }
     }
