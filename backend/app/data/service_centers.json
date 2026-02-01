@@ -1,0 +1,186 @@
+[
+    {
+        "name": "District Collectorate",
+        "type": "Administrative",
+        "address": "District Collectorate Complex, Connaught Place, New Delhi",
+        "pincode": "110001",
+        "latitude": 28.6315,
+        "longitude": 77.2167,
+        "phone": "011-23456789",
+        "timings": "Mon-Fri: 9:30 AM - 5:30 PM",
+        "services": [
+            "Income Certificate",
+            "Caste Certificate",
+            "Residence Certificate",
+            "Birth Certificate",
+            "Death Certificate"
+        ]
+    },
+    {
+        "name": "Passport Seva Kendra",
+        "type": "Passport",
+        "address": "Passport Seva Kendra, Mandi House, New Delhi",
+        "pincode": "110001",
+        "latitude": 28.6256,
+        "longitude": 77.2340,
+        "phone": "1800-258-1800",
+        "timings": "Mon-Sat: 9:00 AM - 5:00 PM",
+        "services": [
+            "New Passport",
+            "Passport Renewal",
+            "Tatkaal Passport"
+        ]
+    },
+    {
+        "name": "Regional Transport Office",
+        "type": "Transport",
+        "address": "RTO Office, IP Estate, New Delhi",
+        "pincode": "110002",
+        "latitude": 28.6289,
+        "longitude": 77.2468,
+        "phone": "011-98765432",
+        "timings": "Mon-Sat: 10:00 AM - 5:00 PM",
+        "services": [
+            "Driving License",
+            "Vehicle Registration",
+            "Permit Services"
+        ]
+    },
+    {
+        "name": "Aadhaar Enrollment Center",
+        "type": "Identity",
+        "address": "CSC Center, Janpath, New Delhi",
+        "pincode": "110001",
+        "latitude": 28.6229,
+        "longitude": 77.2190,
+        "phone": "1947",
+        "timings": "Mon-Sat: 9:00 AM - 6:00 PM",
+        "services": [
+            "New Aadhaar",
+            "Aadhaar Update",
+            "Aadhaar Correction"
+        ]
+    },
+    {
+        "name": "PAN Card Center",
+        "type": "Tax",
+        "address": "NSDL TIN Facilitation Center, Pragati Maidan, New Delhi",
+        "pincode": "110003",
+        "latitude": 28.6183,
+        "longitude": 77.2491,
+        "phone": "020-27218080",
+        "timings": "Mon-Fri: 9:30 AM - 5:30 PM",
+        "services": [
+            "New PAN",
+            "PAN Correction",
+            "PAN Reprint"
+        ]
+    },
+    {
+        "name": "Bank Branch - SBI",
+        "type": "Banking",
+        "address": "State Bank of India, Parliament Street, New Delhi",
+        "pincode": "110001",
+        "latitude": 28.6218,
+        "longitude": 77.2135,
+        "phone": "1800-425-3800",
+        "timings": "Mon-Sat: 10:00 AM - 4:00 PM",
+        "services": [
+            "Account Opening",
+            "Loan Services",
+            "Government Scheme Enrollment"
+        ]
+    },
+    {
+        "name": "Public Distribution Center",
+        "type": "Food",
+        "address": "Ration Shop, Barakhamba Road, New Delhi",
+        "pincode": "110001",
+        "latitude": 28.6317,
+        "longitude": 77.2252,
+        "phone": "011-11223344",
+        "timings": "Tue-Sun: 8:00 AM - 2:00 PM",
+        "services": [
+            "Ration Distribution",
+            "New Ration Card",
+            "Ration Card Update"
+        ]
+    },
+    {
+        "name": "Primary Health Center",
+        "type": "Health",
+        "address": "PHC, Civil Lines, New Delhi",
+        "pincode": "110002",
+        "latitude": 28.6792,
+        "longitude": 77.2244,
+        "phone": "011-55667788",
+        "timings": "24x7",
+        "services": [
+            "OPD Services",
+            "Vaccination",
+            "Ayushman Bharat Registration"
+        ]
+    },
+    {
+        "name": "Employment Exchange",
+        "type": "Employment",
+        "address": "District Employment Office, Shivaji Stadium, New Delhi",
+        "pincode": "110001",
+        "latitude": 28.6248,
+        "longitude": 77.2102,
+        "phone": "011-44556677",
+        "timings": "Mon-Fri: 10:00 AM - 5:00 PM",
+        "services": [
+            "Job Registration",
+            "Employment Certificate",
+            "Skill Training Registration"
+        ]
+    },
+    {
+        "name": "Municipal Corporation Office",
+        "type": "Civic",
+        "address": "Municipal Corporation Building, Town Hall, New Delhi",
+        "pincode": "110001",
+        "latitude": 28.6405,
+        "longitude": 77.2390,
+        "phone": "011-22334455",
+        "timings": "Mon-Sat: 9:00 AM - 5:00 PM",
+        "services": [
+            "Property Tax",
+            "Building Permits",
+            "Marriage Registration",
+            "Birth/Death Registration"
+        ]
+    },
+    {
+        "name": "Police Station - Central",
+        "type": "Police",
+        "address": "Central Police Station, Connaught Place, New Delhi",
+        "pincode": "110001",
+        "latitude": 28.6329,
+        "longitude": 77.2195,
+        "phone": "100",
+        "timings": "24x7",
+        "services": [
+            "FIR Registration",
+            "Police Verification",
+            "Character Certificate",
+            "Lost Report"
+        ]
+    },
+    {
+        "name": "Fire Station - Central Delhi",
+        "type": "Fire",
+        "address": "Fire Station, Connaught Place, New Delhi",
+        "pincode": "110001",
+        "latitude": 28.6298,
+        "longitude": 77.2089,
+        "phone": "101",
+        "timings": "24x7",
+        "services": [
+            "Fire Emergency",
+            "NOC for Business",
+            "Fire Safety Inspection"
+        ]
+    }
+]

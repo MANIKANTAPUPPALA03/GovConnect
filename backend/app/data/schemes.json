@@ -1,0 +1,146 @@
+[
+    {
+        "id": "1",
+        "name": "PM-KISAN",
+        "category": "Agriculture",
+        "description": "Financial support for farmers to supplement their income. Provides direct income support to land-holding farmer families.",
+        "benefit": "₹6,000 per year in three installments",
+        "eligibility": [
+            "Landholding farmer families",
+            "Family must own cultivable land",
+            "No restriction on landholding size"
+        ],
+        "documents": [
+            "Land ownership documents",
+            "Aadhaar card",
+            "Bank account details",
+            "Khasra/Khatauni documents"
+        ]
+    },
+    {
+        "id": "2",
+        "name": "Ayushman Bharat",
+        "category": "Health",
+        "description": "Health insurance scheme for economically vulnerable families. Provides coverage for secondary and tertiary care hospitalization.",
+        "benefit": "₹5 lakh coverage per family per year",
+        "eligibility": [
+            "Below poverty line families",
+            "No existing government health insurance",
+            "Based on SECC 2011 data"
+        ],
+        "documents": [
+            "Ration card",
+            "Aadhaar card",
+            "Income certificate",
+            "BPL certificate"
+        ]
+    },
+    {
+        "id": "3",
+        "name": "National Scholarship Portal",
+        "category": "Education",
+        "description": "Scholarships for students from various backgrounds including SC/ST/OBC/Minority communities for higher education.",
+        "benefit": "Varies by category and level of education (₹5,000 to ₹50,000 per year)",
+        "eligibility": [
+            "Students from SC/ST/OBC/Minority communities",
+            "Family income below ₹2.5 lakh per annum",
+            "Enrolled in recognized educational institutions"
+        ],
+        "documents": [
+            "Caste certificate",
+            "Income certificate",
+            "Previous marksheet",
+            "Bank account details",
+            "Institution enrollment proof"
+        ]
+    },
+    {
+        "id": "4",
+        "name": "Pradhan Mantri Awas Yojana",
+        "category": "Social Welfare",
+        "description": "Housing for all scheme providing financial assistance for constructing houses for urban and rural poor.",
+        "benefit": "Financial assistance up to ₹2.5 lakh for house construction",
+        "eligibility": [
+            "EWS/LIG category families",
+            "No pucca house in family name",
+            "First-time home buyers"
+        ],
+        "documents": [
+            "Income certificate",
+            "Aadhaar card",
+            "Land documents (if applicable)",
+            "Bank account details"
+        ]
+    },
+    {
+        "id": "5",
+        "name": "Solar Rooftop Subsidy",
+        "category": "Environment",
+        "description": "Subsidy for installing solar panels on residential rooftops to promote renewable energy adoption.",
+        "benefit": "Up to 40% subsidy on installation costs (up to 3kW)",
+        "eligibility": [
+            "Residential property owners",
+            "Valid electricity connection",
+            "Adequate roof space for solar panels"
+        ],
+        "documents": [
+            "Property documents",
+            "Electricity bill",
+            "Aadhaar card",
+            "Bank account details"
+        ]
+    },
+    {
+        "id": "6",
+        "name": "Skill India Programme",
+        "category": "Education",
+        "description": "Vocational training and skill development for youth to enhance employability across various sectors.",
+        "benefit": "Free training and certification with placement assistance",
+        "eligibility": [
+            "Age 15-35 years",
+            "Indian citizen",
+            "Minimum 8th pass (varies by course)"
+        ],
+        "documents": [
+            "Aadhaar card",
+            "Educational certificates",
+            "Passport size photos",
+            "Bank account details"
+        ]
+    },
+    {
+        "id": "7",
+        "name": "Mudra Loan Scheme",
+        "category": "Business",
+        "description": "Loans for micro and small enterprises to support entrepreneurship and self-employment.",
+        "benefit": "Loans up to ₹10 lakh without collateral",
+        "eligibility": [
+            "Small business owners",
+            "Entrepreneurs starting new ventures",
+            "Existing businesses seeking expansion"
+        ],
+        "documents": [
+            "Business plan",
+            "Identity proof",
+            "Address proof",
+            "Business registration (if applicable)"
+        ]
+    },
+    {
+        "id": "8",
+        "name": "Atal Pension Yojana",
+        "category": "Social Welfare",
+        "description": "Pension scheme for workers in unorganized sector providing guaranteed minimum pension.",
+        "benefit": "Guaranteed pension of ₹1,000 to ₹5,000 per month after 60 years",
+        "eligibility": [
+            "Age 18-40 years",
+            "Bank account holder",
+            "Not covered under any other social security scheme"
+        ],
+        "documents": [
+            "Aadhaar card",
+            "Bank account details",
+            "Mobile number linked to Aadhaar"
+        ]
+    }
+]

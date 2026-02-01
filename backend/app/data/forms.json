@@ -1,0 +1,90 @@
+[
+    {
+        "id": "caste-certificate",
+        "name": "Telangana Caste Certificate",
+        "description": "Application form for obtaining a caste certificate in Telangana. Required for reservation benefits in education and employment.",
+        "category": "Certificates",
+        "processingTime": "15-30 days",
+        "file": "Telangana-Caste-Certificate.-1.pdf"
+    },
+    {
+        "id": "birth-certificate",
+        "name": "Birth Certificate Application",
+        "description": "Application form for birth registration and certificate. Required for school admission, passport, and various government services.",
+        "category": "Certificates",
+        "processingTime": "7-15 days",
+        "file": "APPLICATION_FOR_BIRTH_CERTIFICATE.pdf"
+    },
+    {
+        "id": "death-certificate",
+        "name": "Death Certificate Application",
+        "description": "Application form for death registration and certificate. Required for insurance claims, property transfer, and legal proceedings.",
+        "category": "Certificates",
+        "processingTime": "7-15 days",
+        "file": "APPLICATIONFORDeathCERTIFICATE.pdf"
+    },
+    {
+        "id": "birth-death-corrections",
+        "name": "Birth/Death Certificate Corrections",
+        "description": "Application for corrections in birth or death certificates. Used when there are errors in the original certificate.",
+        "category": "Certificates",
+        "processingTime": "15-30 days",
+        "file": "birthdeathcorrections.pdf"
+    },
+    {
+        "id": "income-declaration",
+        "name": "Income Declaration Form (ePass)",
+        "description": "Self-declaration of family income for ePASS scholarship applications. Required for educational benefits and subsidies.",
+        "category": "Certificates",
+        "processingTime": "7-15 days",
+        "file": "epass_INCOME_DECLARATION_FORM.pdf"
+    },
+    {
+        "id": "old-age-pension",
+        "name": "Old Age Pension Application",
+        "description": "Application for old age pension scheme. For senior citizens to receive monthly pension benefits.",
+        "category": "Welfare",
+        "processingTime": "30-45 days",
+        "file": "OldAgePensionEnglish.pdf"
+    },
+    {
+        "id": "vehicle-sale-affidavit",
+        "name": "Vehicle Sale Affidavit (RTA)",
+        "description": "Affidavit for vehicle sale/transfer. Required when selling or transferring vehicle ownership.",
+        "category": "RTA",
+        "processingTime": "7-15 days",
+        "file": "RTAVehicleSaleAffidavit.pdf"
+    },
+    {
+        "id": "vehicle-late-registration",
+        "name": "Vehicle Late Registration Affidavit",
+        "description": "Affidavit for late vehicle registration. Required when registering a vehicle after the stipulated period.",
+        "category": "RTA",
+        "processingTime": "7-15 days",
+        "file": "RTAVehicleLateRegAffidavit.pdf"
+    },
+    {
+        "id": "multiple-vehicle-affidavit",
+        "name": "Multiple Vehicle Affidavit (RTA)",
+        "description": "Affidavit for owning multiple vehicles. Required for declaration when owning more than one vehicle.",
+        "category": "RTA",
+        "processingTime": "3-7 days",
+        "file": "RTAMultipleVehicleAffidavit.pdf"
+    },
+    {
+        "id": "electricity-name-change",
+        "name": "Electricity Name Change Bond (TSSPDCL)",
+        "description": "Indemnity bond for name change in electricity connection. Required when transferring electricity connection to a new name.",
+        "category": "Utilities",
+        "processingTime": "7-15 days",
+        "file": "TSSPDCLNameChangeIndemnityBond.pdf"
+    },
+    {
+        "id": "electricity-new-meter",
+        "name": "New Meter Indemnity Bond (TSSPDCL)",
+        "description": "Indemnity bond for new electricity meter installation. Required when applying for a new electricity connection.",
+        "category": "Utilities",
+        "processingTime": "15-30 days",
+        "file": "TSSPDCLNewMeterIndemnityBond.pdf"
+    }
+]
