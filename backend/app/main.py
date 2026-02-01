@@ -11,7 +11,7 @@ settings = get_settings()
 
 app = FastAPI(
     title=settings.app_name,
-    version=settings.app_version,
+    version="1.0.1",
     description="AI-powered government services assistant API",
     docs_url="/docs",
     redoc_url="/redoc",
@@ -43,8 +43,8 @@ async def root():
     return {
         "status": "healthy",
         "app": settings.app_name,
-        "version": settings.app_version,
-        "debug_info": "v2-cors-fix"
+        "version": "1.0.1",
+        "debug_info": "v3-cors-fix-all"
     }
 
 

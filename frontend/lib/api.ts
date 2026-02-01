@@ -31,7 +31,9 @@ export async function fetchFromBackend<T>(
     const timeoutId = setTimeout(() => controller.abort(), timeout);
 
     try {
-        const response = await fetch(`${API_BASE}${endpoint}`, {
+        const fullUrl = `${API_BASE}${endpoint}`;
+        console.log(`Fetching: ${fullUrl}`);
+        const response = await fetch(fullUrl, {
             ...fetchOptions,
             signal: controller.signal,
             headers: {
