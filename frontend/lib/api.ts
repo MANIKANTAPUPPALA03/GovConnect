@@ -48,7 +48,7 @@ export async function fetchFromBackend<T>(
                 console.warn(`API Error ${response.status}. Retrying... (${retries} left)`);
                 return fetchFromBackend<T>(endpoint, options, retries - 1);
             }
-            throw new Error(`API Error: ${response.status} ${response.statusText}`);
+            throw new Error(`API Error ${response.status}: ${response.statusText}`);
         }
 
         return response.json();

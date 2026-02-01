@@ -86,7 +86,8 @@ function SchemesContent() {
       }
     } catch (err) {
       console.error('Error fetching schemes:', err)
-      setError('Failed to load schemes. Please try again.')
+      const errorMessage = err instanceof Error ? err.message : 'Failed to load schemes.'
+      setError(`${errorMessage}. Please try again.`)
     } finally {
       setIsLoading(false)
     }
