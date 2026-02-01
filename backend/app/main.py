@@ -44,6 +44,7 @@ async def root():
         "status": "healthy",
         "app": settings.app_name,
         "version": settings.app_version,
+        "debug_info": "v2-cors-fix"
     }
 
 
