@@ -27,6 +27,8 @@ class Settings(BaseSettings):
     cors_origins: list[str] = [
         "http://localhost:3000",
         "http://127.0.0.1:3000",
+        "https://govconnect-1.web.app",
+        "https://govconnect-1.firebaseapp.com",
     ]
     
     class Config:
