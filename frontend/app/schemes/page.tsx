@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
+import { fetchFromBackend, postToBackend } from '@/lib/api'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -67,26 +68,21 @@ function SchemesContent() {
     setError(null)
     try {
       // Use POST for multilingual support
-      const response = await fetch('/api/schemes', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          query: query || '',
-          language: language
-        })
+      const data = await postToBackend<{ schemes: Scheme[] }>('/api/schemes', {
+        query: query || '',
+        language: language
       })
 
-      if (!response.ok) throw new Error('Failed to fetch schemes')
-      const data = await response.json()
       setSchemes(data.schemes || [])
 
       // Fetch categories
-      const categoriesRes = await fetch('/api/schemes/categories')
-      if (categoriesRes.ok) {
-        const categoriesData = await categoriesRes.json()
+      try {
+        const categoriesData = await fetchFromBackend<{ categories: string[] }>('/api/schemes/categories')
         const backendCategories = categoriesData.categories || []
         const uniqueCategories = ['All', ...backendCategories.filter((c: string) => c !== 'All')]
         setCategories(uniqueCategories)
+      } catch (catErr) {
+        console.warn('Failed to fetch categories:', catErr)
       }
     } catch (err) {
       console.error('Error fetching schemes:', err)
@@ -214,7 +210,7 @@ function SchemesContent() {
                                 </p>
                               </div>
                               <Button asChild className="w-full">
-                                <Link href={`/schemes/${scheme.id}`}>{t(PAGE_TEXT.viewDetails)}</Link>
+                                <Link href={`/schemes/view?id=${scheme.id}`}>{t(PAGE_TEXT.viewDetails)}</Link>
                               </Button>
                             </CardContent>
                           </Card>

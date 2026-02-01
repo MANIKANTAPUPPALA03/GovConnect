@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { postToBackend } from '@/lib/api'
 import { Header } from '@/components/header'
 import { useLanguage } from '@/contexts/language-context'
 import { useTranslate } from '@/components/translate'
@@ -32,29 +33,19 @@ export default function HomePage() {
     setIsSearching(true)
 
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: searchQuery }),
-      })
+      const data = await postToBackend<{ intent: string }>('/api/intent', { text: searchQuery })
 
-      if (response.ok) {
-        const data = await response.json()
-
-        const routes: Record<string, string> = {
-          scheme: '/schemes',
-          form: '/forms',
-          complaint: '/complaints',
-          process: '/process-tracker',
-          service_locator: '/service-locator',
-          life_event: '/schemes',
-        }
-
-        const targetRoute = routes[data.intent] || '/schemes'
-        router.push(`${targetRoute}?q=${encodeURIComponent(searchQuery)}`)
-      } else {
-        router.push(`/schemes?q=${encodeURIComponent(searchQuery)}`)
+      const routes: Record<string, string> = {
+        scheme: '/schemes',
+        form: '/forms',
+        complaint: '/complaints',
+        process: '/process-tracker',
+        service_locator: '/service-locator',
+        life_event: '/schemes',
       }
+
+      const targetRoute = routes[data.intent] || '/schemes'
+      router.push(`${targetRoute}?q=${encodeURIComponent(searchQuery)}`)
     } catch (error) {
       console.error('Search error:', error)
       router.push(`/schemes?q=${encodeURIComponent(searchQuery)}`)

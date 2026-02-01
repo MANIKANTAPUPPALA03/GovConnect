@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { getApiBaseUrl } from '@/lib/api'
 
 interface FieldGuidance {
     fieldName: string
@@ -57,7 +58,7 @@ export default function CustomUploadPage() {
             formData.append('file', uploadedFile)
             formData.append('purpose', purpose)
 
-            const res = await fetch('http://localhost:8000/api/forms/upload', {
+            const res = await fetch(`${getApiBaseUrl()}/api/forms/upload`, {
                 method: 'POST',
                 body: formData
             })

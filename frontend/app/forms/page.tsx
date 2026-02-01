@@ -4,6 +4,7 @@ import React from "react"
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
+import { fetchFromBackend } from '@/lib/api'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
@@ -26,8 +27,7 @@ export default function FormsPage() {
   useEffect(() => {
     async function fetchForms() {
       try {
-        const res = await fetch('http://localhost:8000/api/forms')
-        const data = await res.json()
+        const data = await fetchFromBackend<{ forms: FormData[] }>('/api/forms')
         setForms(data.forms || [])
       } catch (error) {
         console.error('Failed to fetch forms:', error)
@@ -147,7 +147,7 @@ export default function FormsPage() {
             ) : (
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {filteredForms.map((form) => (
-                  <Link key={form.id} href={`/forms/${form.id}`}>
+                  <Link key={form.id} href={`/forms/view?id=${form.id}`}>
                     <Card className="h-full cursor-pointer transition-all hover:shadow-lg hover:border-primary hover:-translate-y-1">
                       <CardHeader>
                         <div className="flex items-start justify-between">

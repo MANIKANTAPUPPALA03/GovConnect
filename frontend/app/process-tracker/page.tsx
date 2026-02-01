@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
+import { postToBackend } from '@/lib/api'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -46,19 +47,11 @@ export default function ProcessTrackerPage() {
     setIsTracking(true)
 
     try {
-      const response = await fetch('/api/process/track', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          processType: application,
-          details: application,
-          language
-        }),
+      const data = await postToBackend<any>('/api/process/track', {
+        processType: application,
+        details: application,
+        language
       })
-
-      if (!response.ok) throw new Error('Failed to track process')
-
-      const data = await response.json()
 
       // Transform backend response to match UI format
       setProcessSteps({

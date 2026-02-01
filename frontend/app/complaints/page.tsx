@@ -4,6 +4,7 @@ import { jsPDF } from 'jspdf'
 
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { postToBackend, fetchFromBackend } from '@/lib/api'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -38,15 +39,13 @@ export default function ComplaintsPage() {
       // Append location details to description for AI
       const fullDescription = `Location of Issue: ${location}, Pincode: ${pincode}\n\nDetails: ${description}`
 
-      const response = await fetch('/api/complaints/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sector, description: fullDescription, language }),
+      const data = await postToBackend<{ subject: string, body: string, suggestedDepartment: string, officialPortal: string }>('/api/complaints/generate', {
+        sector,
+        description: fullDescription,
+        language
       })
+      // Remove response.ok check and response.json() as postToBackend handles it
 
-      if (!response.ok) throw new Error('Failed to generate complaint')
-
-      const data = await response.json()
       setGeneratedComplaint({
         subject: data.subject,
         body: data.body,
@@ -229,8 +228,7 @@ export default function ComplaintsPage() {
         // Actually, Service Locator used `${API_BASE}/api...`. I should confirm if API_BASE is defined in this file.
         // It is NOT defined in this file. I need to define it or use relative.
         // `fetch('/api/complaints/generate')` on line 38 uses relative. So relative works.
-        const res = await fetch(`/api/locator/reverse?lat=${latitude}&lng=${longitude}`)
-        const data = await res.json()
+        const data = await fetchFromBackend<{ area: string, pincode: string }>(`/api/locator/reverse?lat=${latitude}&lng=${longitude}`)
 
         if (data.area) setLocation(data.area)
         if (data.pincode) setPincode(data.pincode)
