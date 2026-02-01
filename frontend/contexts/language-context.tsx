@@ -31,9 +31,16 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang)
 
-    // Set Google Translate cookie
-    // Format: /source_lang/target_lang
-    Cookies.set('googtrans', `/en/${lang}`, { path: '/', domain: window.location.hostname })
+    // Handle Google Translate cookie
+    if (lang === 'en') {
+      // For English, removing the cookie is the most reliable way to revert
+      Cookies.remove('googtrans', { path: '/' })
+      Cookies.remove('googtrans', { path: '/', domain: window.location.hostname })
+    } else {
+      // For other languages, set the translation cookie
+      // Format: /source_lang/target_lang
+      Cookies.set('googtrans', `/en/${lang}`, { path: '/' })
+    }
 
     // Reload to apply translation
     window.location.reload()
