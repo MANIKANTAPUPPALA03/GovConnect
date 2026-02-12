@@ -6,6 +6,21 @@ By leveraging **Artificial Intelligence**, GovConnect simplifies discovering wel
 
 > 💡 *Think of GovConnect as your 24/7 AI government assistant.*
 
+**Built for Code Storm 2026 Hackathon** - Jan 31 - Feb 01, 2026 at NRCM Engineering College
+
+---
+
+## 👥 Team
+
+This project was built by a team of 6 talented individuals:
+
+- **Manikanta Puppala** - Team Lead & Backend Integration
+- **H Uday Kumar** - Backend Developer
+- **S Sairam** - Frontend Developer
+- **K Bhanu Prasad** - Research and Development
+- **K Chakradhar** - Research and Development
+- **Priyya Darshinii** - Documentation & UI/UX
+
 ---
 
 ## 🚀 Key Features
