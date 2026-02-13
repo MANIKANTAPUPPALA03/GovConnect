@@ -1,113 +1,146 @@
 """
-Document Analyzer using Azure Document Intelligence
+Smart Document Analyzer for GovConnect
 
-Analyzes uploaded forms using Azure Document Intelligence (Form Recognizer)
-and extracts form fields for AI guidance.
+ORCHESTRATES:
+1. Cache lookup (for prebuilt documents)
+2. Google Document AI (primary OCR)
+3. Local fallback (pdfplumber/PyPDF2)
+
+CRITICAL CACHING RULE:
+- ONLY Google Document AI results are cached
+- Local fallback results are NEVER cached
 """
-from typing import Optional, List
-from azure.ai.formrecognizer import DocumentAnalysisClient
-from azure.core.credentials import AzureKeyCredential
+from typing import Optional
+from pathlib import Path
 
-from app.config import get_settings
+from app.ai.ocr_cache_manager import (
+    get_cached_ocr,
+    save_cached_ocr,
+    get_document_id
+)
+from app.ai.google_document_ai import extract_text_from_document
+from app.ai.local_ocr_fallback import extract_text_locally
 
 
 class DocumentAnalyzer:
-    """Client for Azure Document Intelligence."""
+    """Smart document analyzer with caching and fallback."""
     
     def __init__(self):
-        settings = get_settings()
-        self.endpoint = settings.doc_intelligence_endpoint
-        self.key = settings.doc_intelligence_key
-        self.client = None
-        
-        if self.endpoint and self.key:
-            self.client = DocumentAnalysisClient(
-                endpoint=self.endpoint,
-                credential=AzureKeyCredential(self.key)
-            )
+        pass
     
     @property
     def is_configured(self) -> bool:
-        """Check if Document Intelligence is properly configured."""
-        return self.client is not None and bool(self.endpoint) and bool(self.key)
-    
-    async def analyze_document(self, file_bytes: bytes, file_type: str = "application/pdf") -> dict:
         """
-        Analyze a document and extract form fields.
+        Document analyzer is ALWAYS configured (uses fallback).
+        This maintains backward compatibility with existing code.
+        """
+        return True
+    
+    async def analyze_document(
+        self, 
+        file_bytes: bytes, 
+        file_type: str = "application/pdf",
+        is_prebuilt: bool = False,
+        file_path: Optional[str] = None
+    ) -> dict:
+        """
+        Analyze a document and extract text.
+        
+        FLOW FOR PREBUILT DOCUMENTS:
+        1. Check cache first
+        2. Try Google OCR (cache result)
+        3. Fallback to local (NO caching)
+        
+        FLOW FOR UPLOADS:
+        1. Try Google OCR (no permanent caching)
+        2. Fallback to local
         
         Args:
-            file_bytes: The document content as bytes
-            file_type: MIME type of the document
+            file_bytes: Document content
+            file_type: MIME type (currently only PDF supported)
+            is_prebuilt: Whether this is a prebuilt document (cacheable)
+            file_path: Path to prebuilt document (for cache ID)
             
         Returns:
-            Dictionary with extracted fields and document info
+            Dictionary with extracted text and metadata
         """
-        if not self.is_configured:
-            return {
-                "success": False,
-                "error": "Document Intelligence not configured",
-                "fields": []
-            }
+        # For prebuilt documents, try cache first
+        if is_prebuilt and file_path:
+            document_id = get_document_id(file_path)
+            
+            # Check cache
+            cached_text = get_cached_ocr(document_id)
+            if cached_text:
+                print(f"[Document Analyzer] Using cached text for {file_path}")
+                return {
+                    "success": True,
+                    "text": cached_text,
+                    "source": "cache",
+                    "page_count": len(cached_text.split('\n\n'))  # Rough estimate
+                }
         
-        try:
-            # Use prebuilt-document model for general form analysis
-            poller = self.client.begin_analyze_document(
-                "prebuilt-document",
-                document=file_bytes
-            )
-            result = poller.result()
+        # Try Google Document AI
+        google_text, google_success = await extract_text_from_document(file_bytes)
+        
+        if google_success and google_text:
+            print("[Document Analyzer] Google OCR successful")
             
-            # Extract key-value pairs
-            fields = []
-            if result.key_value_pairs:
-                for kv in result.key_value_pairs:
-                    if kv.key and kv.key.content:
-                        field = {
-                            "name": kv.key.content.strip(),
-                            "value": kv.value.content.strip() if kv.value else "",
-                            "confidence": kv.confidence if hasattr(kv, 'confidence') else None
-                        }
-                        fields.append(field)
-            
-            # Extract tables if any
-            tables = []
-            if result.tables:
-                for table in result.tables:
-                    table_data = {
-                        "row_count": table.row_count,
-                        "column_count": table.column_count,
-                        "cells": [
-                            {
-                                "row": cell.row_index,
-                                "column": cell.column_index,
-                                "content": cell.content
-                            }
-                            for cell in table.cells
-                        ]
-                    }
-                    tables.append(table_data)
-            
-            # Extract paragraphs for context
-            paragraphs = []
-            if result.paragraphs:
-                for para in result.paragraphs[:10]:  # Limit to first 10
-                    paragraphs.append(para.content)
+            # Cache ONLY if prebuilt document
+            if is_prebuilt and file_path:
+                document_id = get_document_id(file_path)
+                save_cached_ocr(document_id, google_text, source="google")
             
             return {
                 "success": True,
-                "fields": fields,
-                "tables": tables,
-                "paragraphs": paragraphs,
-                "page_count": len(result.pages) if result.pages else 0
+                "text": google_text,
+                "source": "google",
+                "page_count": len(google_text.split('\n\n'))
             }
-            
-        except Exception as e:
-            print(f"[Document Analyzer] Error: {e}")
+        
+        # Fallback to local extraction
+        print("[Document Analyzer] Falling back to local OCR")
+        local_text = await extract_text_locally(file_bytes)
+        
+        # CRITICAL: NEVER cache local results
+        # Even for prebuilt documents, local results are too low quality
+        
+        if local_text:
+            print(f"[Document Analyzer] Local OCR extracted {len(local_text)} chars")
             return {
-                "success": False,
-                "error": str(e),
-                "fields": []
+                "success": True,
+                "text": local_text,
+                "source": "local",
+                "warning": "Low confidence extraction - Google Document AI recommended",
+                "page_count": len(local_text.split('\n\n'))
             }
+        
+        # No text extracted
+        print("[Document Analyzer] No text could be extracted")
+        return {
+            "success": False,
+            "text": "",
+            "source": "none",
+            "error": "Unable to extract text from document",
+            "page_count": 0
+        }
+    
+    async def analyze_document_legacy(self, file_bytes: bytes) -> dict:
+        """
+        Legacy interface for backward compatibility.
+        
+        This maintains compatibility with existing code that used
+        the old document intelligence interface.
+        """
+        result = await self.analyze_document(file_bytes)
+        
+        # Transform to legacy format
+        return {
+            "success": result["success"],
+            "fields": [],  # Legacy format had field extraction
+            "paragraphs": [result["text"]] if result["text"] else [],
+            "tables": [],
+            "page_count": result.get("page_count", 0)
+        }
 
 
 # Global instance

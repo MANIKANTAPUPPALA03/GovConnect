@@ -21,8 +21,7 @@ router = APIRouter()
 
 # Path to forms data and PDF files
 DATA_PATH = Path(__file__).parent.parent / "data" / "forms.json"
-FORMS_DIR = Path(__file__).parent.parent.parent / "application" / "application"
-FORMS_ROOT = Path(__file__).parent.parent.parent / "application"
+FORMS_DIR = Path(__file__).parent.parent.parent / "application"
 
 
 def load_forms() -> list[dict]:
@@ -80,10 +79,8 @@ async def download_form(form_id: str, inline: bool = True):
     if "file" not in form:
         raise HTTPException(status_code=404, detail="Form file not available")
     
-    # Try both directories
+    # Check directory
     file_path = FORMS_DIR / form["file"]
-    if not file_path.exists():
-        file_path = FORMS_ROOT / form["file"]
     
     if not file_path.exists():
         raise HTTPException(status_code=404, detail="Form file not found on disk")
@@ -105,8 +102,8 @@ async def upload_and_analyze_form(
     """
     Upload a form and get AI-powered filling guidance.
     
-    1. Extracts fields using Azure Document Intelligence
-    2. Generates filling guidance using Azure OpenAI
+    1. Extracts text using document analyzer (Google or local)
+    2. Generates filling guidance using Groq AI
     """
     if not file.filename:
         raise HTTPException(status_code=400, detail="No file provided")
@@ -123,7 +120,7 @@ async def upload_and_analyze_form(
     # Read file content
     file_bytes = await file.read()
     
-    # Analyze with Azure Document Intelligence
+    # Analyze with document analyzer
     doc_analyzer = get_document_analyzer()
     doc_result = await doc_analyzer.analyze_document(file_bytes)
     
@@ -171,8 +168,6 @@ async def analyze_preconfigured_form(
     
     # Check if we have the PDF file
     file_path = FORMS_DIR / form.get("file", "")
-    if not file_path.exists():
-        file_path = FORMS_ROOT / form.get("file", "")
     
     if file_path.exists():
         # Read and analyze with Document Intelligence
