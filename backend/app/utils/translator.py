@@ -1,6 +1,6 @@
 """
 Translator utility for multilingual support.
-Uses Azure OpenAI for translation.
+Uses Groq AI for translation.
 
 IMPORTANT: This module provides graceful fallback.
 If translation fails, original content is returned.

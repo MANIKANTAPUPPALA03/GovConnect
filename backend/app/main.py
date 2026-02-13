@@ -51,10 +51,13 @@ async def root():
 @app.get("/health", tags=["Health"])
 async def health_check():
     """Detailed health check."""
+    from app.ai.base import get_ai_client
+    ai_client = get_ai_client()
+    
     return {
         "status": "healthy",
         "services": {
             "api": "operational",
-            "ai": "operational" if settings.azure_openai_api_key else "not_configured",
+            "ai": "operational" if ai_client.is_configured else "not_configured",
         }
     }

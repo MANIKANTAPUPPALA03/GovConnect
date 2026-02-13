@@ -1,7 +1,7 @@
 """
-Form Analyzer using AI
+Form Analyzer - AI-powered form filling guidance
 
-Analyzes forms and provides field-by-field guidance using Azure OpenAI.
+Analyzes forms and provides field-by-field guidance using Groq AI.
 """
 from typing import Optional, List
 
@@ -15,9 +15,17 @@ async def analyze_form(
     purpose: str = ""
 ) -> FormAnalysisResponse:
     """
-    Analyze a form and provide filling guidance.
+    Analyze a government form and generate filling guidance.
     
-    Uses Azure OpenAI for context-aware guidance based on form type and purpose.
+    Uses Groq AI for context-aware guidance based on form type and purpose.
+    This is a template-based approach when document extraction is not available.
+    
+    Args:
+        form_type: Type of form (e.g., "Passport Application")
+        purpose: User's purpose for filling the form
+        
+    Returns:
+        FormAnalysisResponse with step-by-step guidance
     """
     ai_client = get_ai_client()
     
@@ -59,12 +67,15 @@ async def analyze_with_extracted_fields(
     purpose: str
 ) -> FormAnalysisResponse:
     """
-    Generate AI guidance based on fields extracted by Document Intelligence.
+    Analyze form with extracted fields from document analyzer.
     
     Args:
-        extracted_fields: Fields extracted by Azure Document Intelligence
-        paragraphs: Text paragraphs from the document
-        purpose: User's purpose for filling the form
+        extracted_fields: Fields extracted by document OCR
+        paragraphs: Text paragraphs from document
+        purpose: User's purpose for filling
+        
+    Returns:
+        FormAnalysisResponse with field-specific guidance
     """
     ai_client = get_ai_client()
     

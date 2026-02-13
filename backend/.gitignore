@@ -8,3 +8,9 @@ instance/
 
 firebase-credentials.json
 
+# Sensitive Credentials
+govconnect-service-account-key.json
+
+# Temporary / Documentation
+DEPLOYMENT.md
+test_*.py
